@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
-
+const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
@@ -15,7 +15,7 @@ module.exports = (env) => {
     devServer: {
       historyApiFallback: true,
       compress: true,
-      port: 3000
+      port: 4000
     },
     output: {
       filename: isProdMode ? '[contenthash:9].js' : 'index.js',
@@ -30,10 +30,6 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.html$/i,
-          loader: 'html-loader',
-        },
-        {
           test: /\.(sa|sc|c)ss$/,
           use: [
             isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
@@ -46,6 +42,10 @@ module.exports = (env) => {
           ],
         },
         {
+          test: /\.vue\.(s?[ac]ss)$/,
+          use: ["vue-style-loader", "css-loader","postcss-loader", "sass-loader"],
+        },
+        {
           test: /\.woff2?$/i,
           type: 'asset/resource',
           generator: {
@@ -55,22 +55,25 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: /node_modules/
+        },
+        {
+          test: /\.vue$/,
+          loader: "vue-loader",
         },
       ]
     },
     plugins: [
+      new VueLoaderPlugin(),
       new MiniCssExtractPlugin({
         filename: isProdMode ? "[contenthash:9].css" : "index.css",
       }),
 
       new HtmlWebpackPlugin({
-        template:path.resolve(__dirname, './index.html'),
+        template: './index.html',
         minify: isProdMode,
         hash: isProdMode,
         inject: 'body',
       }),
-
 
     ],
     optimization: {

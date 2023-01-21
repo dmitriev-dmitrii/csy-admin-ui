@@ -1,32 +1,14 @@
-// import Vue from "vue";
-// import App from "./App.vue";
-// import router from "@/router";
-// import store from "@/store";
-//
-// import '@/assets/scss/index.scss'
-//
-// Vue.filter('formatDate', function (value) {
-//   if (!value) return ''
-//
-//   value = new Date(value)
-//   let options = {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric"
-//   }
-//   try {
-//     value = value.toLocaleDateString('ru-RU', options)
-//   } catch {
-//     value = 'дата релиза неизвестна'
-//   }
-//
-//
-//
-//   return value
-// })
-//
-// new Vue({
-//   router,
-//   store,
-//   render: (h) => h(App),
-// }).$mount("#app");
+import { createApp } from "vue";
+import App from "./src/App.vue";
+
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+    components,
+    directives,
+})
+
+createApp(App).use(vuetify).mount('#app')

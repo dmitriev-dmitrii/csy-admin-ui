@@ -1,13 +1,15 @@
 <template>
-<h1>hello friend </h1>
+  <v-layout>
+    <v-app-bar >
+      <h1>abc bar</h1>
+    </v-app-bar>
+    <v-navigation-drawer permanent>
+      <h1>abc</h1>
+    </v-navigation-drawer>
+
+    <v-main>
+      <h1>abc</h1>
+    </v-main>
+
+  </v-layout>
 </template>
-
-<script>
-export default {
-  name: "App.vue"
-}
-</script>
-
-<style scoped>
-
-</style>
