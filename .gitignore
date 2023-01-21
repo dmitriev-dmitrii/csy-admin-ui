@@ -1,0 +1,15 @@
+# IDE / Editor
+.idea
+
+# macOS
+.DS_Store
+
+# dotenv environment variables file
+.env
+
+
+package-lock.json
+
+node_modules/*
+
+
