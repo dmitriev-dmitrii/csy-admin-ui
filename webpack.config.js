@@ -76,11 +76,13 @@ module.exports = (env) => {
       }),
 
     ],
+
     optimization: {
       concatenateModules: isProdMode,
       mangleExports: isProdMode,
       minimize: isProdMode,
     }
+
   };
 
 };
