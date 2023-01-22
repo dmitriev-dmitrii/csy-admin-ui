@@ -1,26 +1,27 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Main from "@/views/Main.vue";
+
+import Welcome from "@/views/Welcome.vue";
 import Error from "@/views/Error.vue";
-Vue.use(VueRouter);
+import Products from "@/views/Products.vue";
 
 const routes = [
   {
     path: "/",
-    name: "Main",
-    component: Main,
+    name: "Welcome",
+    component: Welcome,
   },
-
   {
-    path: "*",
+    path: "/products",
+    name: "Products",
+    component: Products,
+  },
+  {
+    path: '/:pathMatch(.*)*',
     name: "Error",
     component: Error,
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  routes,
-});
 
-export default router;
+
+
+export default routes;
