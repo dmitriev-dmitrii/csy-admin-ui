@@ -1,4 +1,6 @@
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {DefinePlugin} = require('webpack');
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -11,7 +13,7 @@ module.exports = (env) => {
   return {
     entry: './index.js',
     mode: isProdMode ? 'production' : 'development',
-
+    devtool: "source-map",
     devServer: {
       historyApiFallback: true,
       compress: true,
@@ -73,6 +75,10 @@ module.exports = (env) => {
         minify: isProdMode,
         hash: isProdMode,
         inject: 'body',
+      }),
+      new DefinePlugin({
+        __VUE_OPTIONS_API__: isDevMode,
+        __VUE_PROD_DEVTOOLS__: isDevMode
       }),
 
     ],
