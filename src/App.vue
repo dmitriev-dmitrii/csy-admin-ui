@@ -5,8 +5,18 @@
 
 
     </v-app-bar>
-    <v-navigation-drawer permanent>
-      <h1>abc</h1>
+    <v-navigation-drawer >
+      <v-btn
+          class="ma-2"
+          color="primary"
+      >
+        Accept
+        <v-icon
+            end
+            icon="mdi-checkbox-marked-circle"
+        ></v-icon>
+
+      </v-btn>
     </v-navigation-drawer>
 
     <v-main>
