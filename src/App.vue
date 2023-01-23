@@ -2,12 +2,11 @@
     <v-app :theme="isDarkTheme ? 'dark' : 'light'">
     <v-app-bar>
 
-      <v-app-bar-title class="font-weight-black">csy admin</v-app-bar-title>
-      <template v-slot:append class="d-flex align-center">
+      <v-btn variant="plain" to="/" class="text-decoration-none font-weight-black">csy admin</v-btn>
+
+      <template v-slot:append>
         <v-checkbox hide-details  label="isDarkTheme" v-model="isDarkTheme"/>
       </template>
-
-
 
     </v-app-bar>
 
@@ -15,12 +14,14 @@
 
       :rail="isSmallNav"
       >
-          <v-btn
-              class="ma-1 ml-auto d-block"
 
-              :icon="isSmallNav ? 'mdi-chevron-right' : 'mdi-chevron-left'"
-              @click.stop="isSmallNav = !isSmallNav"
-          ></v-btn>
+  <v-btn
+    class="ma-1 ml-auto d-block"
+
+    :icon="isSmallNav ? 'mdi-chevron-right' : 'mdi-chevron-left'"
+    @click.stop="isSmallNav = !isSmallNav"
+  />
+
 
         <v-divider></v-divider>
         <v-list nav >
