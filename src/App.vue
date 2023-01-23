@@ -1,8 +1,9 @@
 <template>
     <v-app :theme="isDarkTheme ? 'dark' : 'light'">
+
     <v-app-bar>
 
-      <v-btn variant="plain" to="/" class="text-decoration-none font-weight-black">csy admin</v-btn>
+      <v-btn variant="plain" :ripple="false" to="/" class="text-decoration-none font-weight-black">csy admin</v-btn>
 
       <template v-slot:append>
         <v-checkbox hide-details  label="isDarkTheme" v-model="isDarkTheme"/>
@@ -10,32 +11,8 @@
 
     </v-app-bar>
 
-      <v-navigation-drawer
-
-      :rail="isSmallNav"
-      >
-
-  <v-btn
-    class="ma-1 ml-auto d-block"
-
-    :icon="isSmallNav ? 'mdi-chevron-right' : 'mdi-chevron-left'"
-    @click.stop="isSmallNav = !isSmallNav"
-  />
-
-
-        <v-divider></v-divider>
-        <v-list nav >
-          <v-list-subheader >Каталог</v-list-subheader>
-          <v-list-item prepend-icon="mdi-folder" title="My Files" value="main"></v-list-item>
-          <v-list-item prepend-icon="mdi-account-multiple" title="Shared with me" value="shared"></v-list-item>
-          <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
-
-        </v-list>
-        <v-divider></v-divider>
-      </v-navigation-drawer>
-
-
-    <v-main>
+    <AppNavigationBar/>
+    <v-main >
       <router-view/>
     </v-main>
 
@@ -45,13 +22,16 @@
 <script>
 
 
+import AppNavigationBar from "@/components/AppNavigationBar/index.vue";
+
 export default
 {
-data:()=>{
+  components: {AppNavigationBar},
+data(){
   return {
     isDarkTheme:true,
-    isSmallNav:false,
   }
-}
+},
+
 }
 </script>

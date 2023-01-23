@@ -17,7 +17,8 @@ module.exports = (env) => {
     devServer: {
       historyApiFallback: true,
       compress: true,
-      port: 4000
+      port: 4000,
+      host: '0.0.0.0'
     },
     output: {
       filename: isProdMode ? '[contenthash:9].js' : 'index.js',
