@@ -1,7 +1,9 @@
 
 import Welcome from "@/views/Welcome.vue";
 import Error from "@/views/Error.vue";
-import Products from "@/views/Products.vue";
+import ProductsList from "@/views/Products/List.vue";
+import ProductsCreate from "@/views/Products/Create.vue";
+import ProductsEdit from "@/views/Products/Edit.vue";
 
 const routes = [
   {
@@ -11,8 +13,21 @@ const routes = [
   },
   {
     path: "/products",
-    name: "Products",
-    component: Products,
+    name: "ProductsList",
+    component: ProductsList,
+    children: [
+
+      {
+        path: ':id',
+        name: 'ProductsCreateEdit',
+        component: ProductsEdit,
+      }
+    ]
+  },
+  {
+    path: '/products/create',
+    name: 'ProductsCreate',
+    component: ProductsCreate,
   },
   {
     path: '/:pathMatch(.*)*',
@@ -20,8 +35,5 @@ const routes = [
     component: Error,
   },
 ];
-
-
-
 
 export default routes;

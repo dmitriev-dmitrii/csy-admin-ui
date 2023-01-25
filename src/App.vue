@@ -12,8 +12,11 @@
     </v-app-bar>
 
     <AppNavigationBar/>
-    <v-main >
-      <router-view/>
+    <v-main>
+      <div class="pt-2 px-4">
+        <router-view />
+      </div>
+
     </v-main>
 
   </v-app>

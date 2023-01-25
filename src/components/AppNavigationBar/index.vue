@@ -25,13 +25,12 @@
       </template>
     </v-list>
 
-
   </v-navigation-drawer>
 
 </template>
 
 <script>
-import itemsList from './itemsList'
+import navItemsList from './navItemsList'
 export default {
   name: "AppNavigationBar",
   data ()  {
@@ -49,7 +48,7 @@ export default {
     }
     const catalogNavArr = []
 
-    itemsList.forEach((i)=>{
+    navItemsList.forEach((i)=>{
 
       if (i.route) {
 
@@ -58,13 +57,13 @@ export default {
       }
 
       i.items = i.items.map((item)=>{
-        console.log(new NavItem(item))
+
         return  new NavItem(item)
       })
-      console.log( i.items )
+
       catalogNavArr.push (i)
     })
-    console.log(catalogNavArr)
+
     return {
       catalogNavArr,
 
