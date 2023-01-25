@@ -2,11 +2,11 @@
   <h1>Products </h1>
    <v-btn :to="{name : 'ProductsCreate'}"> добавить товар </v-btn>
 
-  <ProductsList/>
+  <ProductsListDataTable/>
 </template>
 
 <script>
-import ProductsList from "@/components/products/ProductsList.vue";
+import ProductsList from "@/components/products/ProductsListDataTable.vue";
 
 export default {
   components: {ProductsList}

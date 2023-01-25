@@ -1,3 +1,4 @@
+import products from "@/store/products";
 export default {
     state: {
 
@@ -14,7 +15,7 @@ export default {
 
     },
     modules: {
-        // step:step,
+        products
     }
 }
 

@@ -1,10 +1,10 @@
 <template>
-
+table
 </template>
 
 <script>
 export default {
-  name: "ProductsList"
+  name: "ProductsDataTableList"
 }
 </script>
 

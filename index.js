@@ -9,6 +9,7 @@ import routes from "@/router";
 export const store = createStore(storeModules)
 
 const router = createRouter({
+    // mode: 'history',
     history : createWebHistory(),
     routes : routes
 })
@@ -20,9 +21,12 @@ import '@mdi/font/css/materialdesignicons.css'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+
+
 const vuetify = createVuetify({
     components,
     directives,
 })
+
 
 createApp(App).use(store).use(router).use(vuetify).mount('#app')

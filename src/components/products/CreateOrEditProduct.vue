@@ -2,7 +2,6 @@
   <template>
 
     <v-form
-
         :disabled="loading"
         @submit="submitHandle"
         @reset="resetHandle"
@@ -27,14 +26,15 @@
           label="Название Товара"
           required
       />
+
       <v-select
           v-model="product.brand"
           :items="brandsList"
           :rules="[v => !!v || 'Item is required']"
           label="Бренд"
           required
-
       />
+      {{product.brand}}
 
       <v-select
           v-model="product.categories"
@@ -42,7 +42,6 @@
           :items="categoriesList"
           :rules="[v => !!v || 'Item is required']"
           label="Категории"
-
           required
 
       />
@@ -97,7 +96,7 @@ export default {
   }),
 
   methods: {
-    submitHandle(){
+    submitHandle() {
       this.$refs.form.validate()
       if (!this.isValid) {
         return
@@ -108,6 +107,7 @@ export default {
     resetHandle () {
       this.$refs.form.reset()
     },
+
 
   },
 }

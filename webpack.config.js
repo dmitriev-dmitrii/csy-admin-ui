@@ -1,7 +1,6 @@
-
+const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {DefinePlugin} = require('webpack');
-const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -21,12 +20,13 @@ module.exports = (env) => {
       host: '0.0.0.0'
     },
     output: {
-      filename: isProdMode ? '[contenthash:9].js' : 'index.js',
+      filename: isProdMode ? '[contenthash:9].js' : '[name].js',
+      publicPath: '/',
       clean: true
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src/')
+        '@': path.resolve(__dirname, './src/'),
       },
       extensions: ["*",".scss", ".js", ".json"],
     },
