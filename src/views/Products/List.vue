@@ -2,7 +2,8 @@
   <h1>Products </h1>
    <v-btn :to="{name : 'ProductsCreate'}"> добавить товар </v-btn>
 
-  <ProductsListDataTable />
+  <ProductsListDataTable class="my-4" />
+
 </template>
 
 <script>

@@ -14,7 +14,7 @@
       <template  v-for="(i,index) in catalogNavArr" :key="index" >
       <template v-if="i.items">
         <v-divider/>
-        <v-list-subheader v-if="i.title" class="px-0">{{i.title}}</v-list-subheader>
+        <v-list-subheader v-if="i.title" class="pr-0" :title="i.title" />
       <v-list-item v-for="listItem in i.items" :key="listItem.routeName" :prepend-icon="listItem.icon" :title="listItem.label"  :to="{name:listItem.routeName}"/>
       <v-divider v-if="i.title"/>
       </template>
