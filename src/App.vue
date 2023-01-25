@@ -3,7 +3,7 @@
 
     <v-app-bar>
 
-      <v-btn variant="plain" :ripple="false" to="/" class="text-decoration-none font-weight-black">csy admin</v-btn>
+      <v-btn variant="plain" :ripple="false" :to="{name:'Home'}" class="text-decoration-none font-weight-black">csy admin</v-btn>
 
       <template v-slot:append>
         <v-checkbox hide-details  label="isDarkTheme" v-model="isDarkTheme"/>

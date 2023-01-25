@@ -1,5 +1,7 @@
 <template>
-table
+<v-table>
+
+</v-table>
 </template>
 
 <script>

@@ -1,13 +1,13 @@
 
-import Welcome from "@/views/Welcome.vue";
+import Home from "@/views/Home.vue";
 import Error from "@/views/Error.vue";
 import ProductsRoutes from "./products";
 
 const routes = [
   {
     path: "/",
-    name: "Welcome",
-    component: Welcome,
+    name: "Home",
+    component: Home,
   },
 
   {
@@ -17,4 +17,4 @@ const routes = [
   },
 ];
 
-export default  [routes,...ProductsRoutes];
+export default  [...ProductsRoutes,...routes];

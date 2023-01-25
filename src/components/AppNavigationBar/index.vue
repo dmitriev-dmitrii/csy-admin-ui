@@ -15,12 +15,12 @@
       <template v-if="i.items">
         <v-divider/>
         <v-list-subheader v-if="i.title" class="px-0">{{i.title}}</v-list-subheader>
-      <v-list-item v-for="listItem in i.items" :key="listItem.route" :prepend-icon="listItem.icon" :title="listItem.label"  :to="listItem.route"/>
+      <v-list-item v-for="listItem in i.items" :key="listItem.routeName" :prepend-icon="listItem.icon" :title="listItem.label"  :to="{name:listItem.routeName}"/>
       <v-divider v-if="i.title"/>
       </template>
 
       <template v-else >
-        <v-list-item  :key="i.route" :prepend-icon="i.icon" :title="i.label"  :to="i.route"/>
+        <v-list-item  :key="i.routeName" :prepend-icon="i.icon" :title="i.label"  :to="{name:i.routeName}"/>
       </template>
       </template>
     </v-list>
@@ -42,15 +42,15 @@ export default {
   setup () {
     function NavItem(item) {
       this.icon = item.icon || 'mdi-set-none'
-      this.route = item.route || ''
+      this.routeName = item.routeName || ''
       this.permission = item.permission || ''
-      this.label = item.label || this.route
+      this.label = item.label || this.routeName
     }
     const catalogNavArr = []
 
     navItemsList.forEach((i)=>{
 
-      if (i.route) {
+      if (i.routeName) {
 
         catalogNavArr.push  (new NavItem(i))
         return
