@@ -3,21 +3,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {DefinePlugin} = require('webpack');
 const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const dotenv = require('dotenv');
 
-module.exports = (env) => {
+module.exports = ({mode}) => {
+  const env = dotenv.config().parsed;
 
-  const isDevMode = env.mode === 'development'
-  const isProdMode = env.mode === 'production'
+  const isDevMode = mode === 'development'
+  const isProdMode = mode === 'production'
 
   return {
     entry: './index.js',
     mode: isProdMode ? 'production' : 'development',
     devtool: "source-map",
+
     devServer: {
       historyApiFallback: true,
       compress: true,
-      port: 4000,
-      host: '0.0.0.0'
+      port: env.PORT,
+      host: '0.0.0.0',
+      // proxy: {
+      //   '/api': 'http://localhost:3000/',
+      // },
     },
     output: {
       filename: isProdMode ? '[contenthash:9].js' : '[name].js',

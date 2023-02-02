@@ -1,6 +1,6 @@
 <template>
   <h1>Добавить товар</h1>
-<!--  <CreateOrEditProduct />-->
+  <CreateOrEditProduct />
 </template>
 
 <script>
