@@ -17,11 +17,54 @@
           v-model="product.name"
           :counter="10"
           :rules="nameRules"
+          label="Цвет"
+          required
+          :loading="loading"
+          variant="outlined"
+      />
+
+      <v-text-field
+          class="mb-2"
+          v-model="product.name"
+          :counter="10"
+          :rules="nameRules"
           label="Название Товара"
           required
           :loading="loading"
           variant="outlined"
+      />
+      <v-text-field
+          class="mb-2"
+          label="Артикул Производителя"
+          required
+          :loading="loading"
+          variant="outlined"
+      />
+      <v-text-field
+          class="mb-2"
+          v-model.number="product.price"
+          :rules="priceRules"
+          label="Цена"
+          required
+          :loading="loading"
+          variant="outlined"
+      />
+     <span> {{product.price}} руб.</span>
 
+      <v-text-field
+          class="mb-2"
+          v-model.number="product.count"
+          label="Количеств "
+          :loading="loading"
+          variant="outlined"
+      />
+      <span> {{product.price}} шт.</span>
+      <v-select
+          class="mb-2"
+          :loading="loading"
+          :items="['поштучно','в коробке']"
+          label="тип упаковки"
+          required
       />
 
       <v-select
@@ -45,10 +88,24 @@
           :rules="[v => !!v || 'Item is required']"
           label="Категории"
           required
-
       />
+
+
+
 {{product.categories}}
-      <div class="d-flex justify-end">
+
+      <div class="d-flex justify-end py-4">
+        <v-switch label="Активный " v-model="product.isActive" hide-details/>
+        <v-btn
+            color="red"
+            :loading="loading"
+            :disabled="loading"
+        >
+          Удалить Товар
+        </v-btn>
+      </div>
+
+      <div class="d-flex justify-end py-4">
         <v-btn
             class="mr-4"
             type="reset"
@@ -82,16 +139,23 @@ export default {
       id:'',
       name: '',
       categories:['as'],
-      brand:1
+      brand:1,
+      isActive:true,
+      price:0,
+      count:0
+
     },
     isValid: true,
     loading:false,
 
     nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      v => !!v || 'Поле обязательно',
+      v => (v && v.length <= 3) || 'Минимум 3 символа',
     ],
-
+    priceRules: [
+      v => !!v || 'Поле обязательно',
+      v => (Number.parseInt(v,10)) || 'Введите Число',
+    ],
    categoriesList: [
    'as'
     ],
