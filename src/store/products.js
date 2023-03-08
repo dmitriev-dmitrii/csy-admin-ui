@@ -63,10 +63,11 @@ export default {
         async getProductsList (context) {
             try{
                 const res =   await axios.get('http://localhost:3000/api/catalog/products')
-                console.log(res)
                 context.commit('setProductsList',res.data)
+                return res.data
             }catch (err) {
                 console.log(err)
+                return err
             }
         },
 

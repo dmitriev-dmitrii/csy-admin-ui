@@ -113,10 +113,10 @@ export default {
       }
 
       if (this.product.id) {
-        this.$store.dispatch( 'products/updateProductById', this.product )
+        this.$store.dispatch( 'Products/updateProductById', this.product )
       }
 
-      this.$store.dispatch( 'products/createProduct', this.product )
+      this.$store.dispatch( 'Products/createProduct', this.product )
 
      }
      catch (err) {
