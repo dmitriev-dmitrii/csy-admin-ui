@@ -1,16 +1,16 @@
 
-import ProductsList from "@/views/Products/List.vue";
-import ProductsCreate from "@/views/Products/Create.vue";
-import ProductsEdit from "@/views/Products/Edit.vue";
+import ProductsList from "@/views/Products/ProductList.vue";
+import ProductsCreate from "@/views/Products/CreateProduct.vue";
+import ProductsEdit from "@/views/Products/EditProduct.vue";
 
 export default [
-{path: "/products",
+{path: "/Products",
 	name: "ProductsList",
 	component: ProductsList,
 }
 ,
 {
-	path: '/products/create',
+	path: '/Products/create',
 		name:
 	'ProductsCreate',
 		component:
@@ -18,7 +18,7 @@ export default [
 }
 ,
 {
-	path: '/products/:id',
+	path: '/Products/:id',
 		name:
 	'ProductsEdit',
 		component:

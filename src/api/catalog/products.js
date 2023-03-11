@@ -5,9 +5,9 @@ const entity = 'products'
 const apiPrefix = 'catalog'
 
 export default  {
-    // getProductsList: axios.get('api/catalog/products'),
-    // getProductById: axios.get('api/catalog/products',),
-    // createProduct: axios.post('api/catalog/products'),
-    // updateProduct: axios.put('api/catalog/products'),
-    // deleteProduct: axios.delete('api/catalog/products')
+    // getProductsList: axios.get('api/catalog/Products'),
+    // getProductById: axios.get('api/catalog/Products',),
+    // createProduct: axios.post('api/catalog/Products'),
+    // updateProduct: axios.put('api/catalog/Products'),
+    // deleteProduct: axios.delete('api/catalog/Products')
 }

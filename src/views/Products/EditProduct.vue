@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import CreateOrEditProduct from "@/components/products/CreateOrEditProduct.vue";
+import CreateOrEditProduct from "@/components/Products/CreateOrEditProduct.vue";
 
 export default {
   name: "Edit",
