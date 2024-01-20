@@ -1,6 +1,6 @@
 <template>
 
-    <h1 >Error</h1>
+    <h1>Error</h1>
 
 </template>
 
@@ -8,6 +8,6 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 </style>
