@@ -23,12 +23,17 @@
     <v-btn type="submit"> submit </v-btn>
     <v-btn type="reset"> reset  </v-btn>
   </v-form>
-  <v-btn @click="getUsers">get users</v-btn>
+  <v-btn @click="fetchUsers">get users</v-btn>
   <v-btn @click="userLogout">userLogout</v-btn>
+  <v-list title="users">
+    <v-list-item v-for="user in users">
+      {{user.login}}
+    </v-list-item>
+  </v-list>
 </template>
 
 <script >
-import {defineComponent, reactive, ref, unref} from "vue";
+import {defineComponent, onMounted, reactive, ref, unref} from "vue";
 
 import NavigationAside from "../components/navigation/NavigationAside.vue";
 import NavigationHeader from "../components/navigation/NavigationHeader.vue";
@@ -46,8 +51,8 @@ export default defineComponent({
     } )
 
     const registrationFlag = ref(false)
-    const {userRegistration,getUsers,userLogout,userLogin,userRefreshToken} = usersApi
-    userRefreshToken()
+    const {userRegistration,getUsers,userLogout,userLogin} = usersApi
+
 const validateForm = ()=>{
       return unref(form.isValid)
 }
@@ -63,12 +68,23 @@ const validateForm = ()=>{
     async function formShowPasswordToggle() {
       form.isShowPassword = !form.isShowPassword
     }
+    const users = ref([])
+   const  fetchUsers = async ()=>{
+     users.value = await getUsers()
+    }
+
+    onMounted(()=>{
+      fetchUsers()
+    })
+
     return {
+      users,
       registrationFlag,
       submitForm,
       form,
       formShowPasswordToggle,
-      getUsers,userLogout
+      userLogout,
+      fetchUsers
     }
   }
 })

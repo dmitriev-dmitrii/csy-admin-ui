@@ -26,7 +26,7 @@ export default
 
   setup() {
     const {meta}  = useRoute()
-    console.log( meta )
+
     const currentLayout =  computed(():LayoutsMap => {
 
       return meta.layout || LayoutsMap.DEFAULT_LAYOUT

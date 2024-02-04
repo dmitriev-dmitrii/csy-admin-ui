@@ -5,7 +5,13 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ command, mode, isSsrBuild, isPreview })=>{
   let config = {
-    plugins: [vue()]
+    plugins: [vue()],
+    server: {
+      port: 5000,
+    },
+    preview: {
+      port: 5000,
+    },
   }
 
   if (command === 'serve') {
