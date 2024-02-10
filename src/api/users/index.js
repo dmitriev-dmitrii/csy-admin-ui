@@ -1,49 +1,54 @@
 import axios from "axios";
 import {useCookies} from "vue3-cookies";
 const USER_AUTH_ACCESS_TOKEN_HEADER = 'csy-auth'
+const USER_ACCESS_TOKEN_COOKIE_KEY = 'csy-access'
+
 
 const apiConfig = {
+    isRetryRefreshAuthTokens: false , //была ли попытка обновления рефреш токенов
+    isAuthRequired:true, //отправлять ли токены аутификации с запросом
     withCredentials:true,
     baseURL:'http://localhost:4000/api/users',
 
 }
+
 const userApi = axios.create(apiConfig)
 
 const { cookies } = useCookies();
 
 const setAuthTokenCooke = ({accessToken})=> {
-    cookies.set("accessToken",accessToken,);
+    cookies.set(USER_ACCESS_TOKEN_COOKIE_KEY,accessToken);
 }
 
 const authRequestInterceptor = (req)=>{
-    req.headers[USER_AUTH_ACCESS_TOKEN_HEADER] = cookies.get("accessToken")
+
+    const {isAuthRequired} = req
+
+    if (isAuthRequired) {
+        req.headers[USER_AUTH_ACCESS_TOKEN_HEADER] = cookies.get(USER_ACCESS_TOKEN_COOKIE_KEY)
+    }
+
     return req
 }
-let errCounter = 0
+
 async function authResponseInterceptor (err) {
 
     const {response} = err
     const {status} = response
 
-    if (status === 401 && err?.config  ) {
+    if (status === 401 && !err.config.isRetryRefreshAuthTokens  ) {
 
-        console.log(err?.config)
+        const data = await   userUpdateAuthTokens({isRetryRefreshAuthTokens:true})
 
-            if (errCounter < 2 ) {
-                errCounter++
-                const data = await   updateUserRefreshToken()
-                setAuthTokenCooke(data.tokens)
+        setAuthTokenCooke(data.tokens)
 
-               return  await userApi.request(err.config);
-            }
+        await axios.request(err.config);
+        return
 
     }
     throw err;
 }
-userApi.interceptors.response.use(
-    (res) => {return res},
-    authResponseInterceptor
-)
+userApi.interceptors.response.use(null,authResponseInterceptor)
 userApi.interceptors.request.use(authRequestInterceptor)
 
 const userRegistration = async (payload = { })=> {
@@ -74,7 +79,7 @@ const userLogin = async (payload = { })=> {
 const userLogout = async (payload = { })=> {
     try {
         const {data} = await  userApi.post('/logout',payload)
-        cookies.remove('accessToken')
+        cookies.remove(USER_ACCESS_TOKEN_COOKIE_KEY)
 
         return data
     }
@@ -83,10 +88,10 @@ const userLogout = async (payload = { })=> {
     }
 
 }
-const updateUserRefreshToken = async ()=> {
+const userUpdateAuthTokens = async (config = {isRetryRefreshAuthTokens : false})=> {
     try {
 
-        const {data} = await  userApi.get('/refresh-token',{hui:true})
+        const {data} = await  userApi.get('/refresh-token',config)
         setAuthTokenCooke(data.tokens)
 
         return data
@@ -113,6 +118,6 @@ const usersApi = {
     userLogin,
     userLogout,
     getUsers,
-    updateUserRefreshToken,
+    userUpdateAuthTokens,
 }
 export default usersApi

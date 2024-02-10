@@ -18,7 +18,7 @@
     "@mdi/font": "^7.4.47",
     "@vitejs/plugin-vue": "^4.5.2",
     "autoprefixer": "10.4.13",
-    "axios": "^1.6.5",
+    "axios": "^1.6.7",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
     "postcss-flexbugs-fixes": "5.0.2",
