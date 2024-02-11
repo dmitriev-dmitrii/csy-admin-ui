@@ -37,11 +37,10 @@ async function responseErrInterceptor (err) {
     throw err;
 }
 
-async function responseInterceptor (res) {
-    console.log(res)
-    return res.data
+async function responseInterceptor ({data}) {
+    return data
 }
 
-axios.interceptors.response.use(null,responseErrInterceptor)
+axios.interceptors.response.use(responseInterceptor,responseErrInterceptor)
 
  axiosInherit(axios)

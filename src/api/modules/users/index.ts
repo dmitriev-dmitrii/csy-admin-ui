@@ -9,9 +9,8 @@ usersApiInstance.defaults.baseURL = 'http://localhost:4000/api/users'
 const getUsers = async (params = { })=> {
     try {
 
-        const {data} = await  usersApiInstance.get('/',)
-
-        return data
+      const  res  = await  usersApiInstance.get('/',)
+        return res
     }
     catch (err) {
 
