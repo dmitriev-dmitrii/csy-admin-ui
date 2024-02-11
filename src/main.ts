@@ -12,7 +12,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 // Vuetify
 
-import './api/config/authInterceptors.ts'
+import './api/config/interceptors.ts'
 
 import {createRouter, createWebHistory} from "vue-router";
 import VueCookies from 'vue3-cookies'

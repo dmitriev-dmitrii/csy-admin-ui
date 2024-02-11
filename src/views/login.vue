@@ -37,8 +37,8 @@ import {defineComponent, onMounted, reactive, ref, unref} from "vue";
 
 import NavigationAside from "../components/navigation/NavigationAside.vue";
 import NavigationHeader from "../components/navigation/NavigationHeader.vue";
-import usersApi from "../api/modules/users/index.js";
-import authApi from "../api/modules/auth/index.js";
+import usersApi from "../api/modules/users/index.ts";
+import authApi from "../api/modules/auth/index.ts";
 export default defineComponent({
   name:'Login',
   components: {NavigationHeader, NavigationAside},
@@ -71,7 +71,7 @@ const validateForm = ()=>{
     }
     const users = ref([])
    const  fetchUsers = async ()=>{
-     users.value = await getUsers()
+        users.value = await getUsers()
     }
 
     onMounted(()=>{

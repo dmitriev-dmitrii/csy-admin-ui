@@ -1,11 +1,9 @@
 import axiosInherit from "axios-inherit";
 import axios from "axios";
 import {useCookies} from "vue3-cookies";
+import {USER_ACCESS_TOKEN_COOKIE_KEY} from "../../../constats/appCookiesKeys.ts";
 
 const { cookies } = useCookies();
-
-const USER_AUTH_ACCESS_TOKEN_HEADER = 'csy-auth'
-const USER_ACCESS_TOKEN_COOKIE_KEY = 'csy-access'
 
 const setAuthTokenCooke = ({accessToken=''})=> {
     cookies.set(USER_ACCESS_TOKEN_COOKIE_KEY,accessToken);
