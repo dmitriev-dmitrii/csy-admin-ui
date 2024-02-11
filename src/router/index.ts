@@ -1,27 +1,24 @@
 
-import Main from "../views/main.vue";
-import Login from "../views/login.vue";
-import Error from "../views/error.vue";
-import productsRoutes from "./products";
-import {LayoutsMap} from "../layouts/enums/LayoutsMap.ts";
+import MainPage from "../pages/MainMage.vue";
+import Error from "../pages/ErrorPage.vue";
+import productsRoutes from "./productsRoutes.ts";
+
+import {LayoutsMap} from "../constats/LayoutsMap.ts";
+import {createRouter, createWebHistory} from "vue-router";
+import authRoutes from "./authRoutes.ts";
+import authMiddleware from "./middlewares/authMiddleware.ts";
 
 const routes = [
   {
     path: "/",
     name: "main",
-    component: Main,
+    component: MainPage,
     meta:{
       layout: LayoutsMap.DEFAULT_LAYOUT
     }
   },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-    meta:{
-      layout: LayoutsMap.AUTH_LAYOUT
-    }
-  },
+  ...productsRoutes,
+  ...authRoutes,
   {
     path: '/:pathMatch(.*)*',
     name: "error",
@@ -32,4 +29,23 @@ const routes = [
   },
 ];
 
-export default  [...productsRoutes,...routes];
+const router = createRouter({
+  // mode: 'history',
+  history : createWebHistory(),
+  routes
+})
+router.beforeEach((to, from, next) => {
+  console.log(to)
+
+  // if (to.name !== 'login' ) {
+  //   return next({name : 'login'})
+  // }
+
+  // if (to.meta.middleware) {
+  //
+  // }
+
+  return next();
+});
+
+export default router ;

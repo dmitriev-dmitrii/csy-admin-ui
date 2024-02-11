@@ -1,7 +1,7 @@
 
-import ProductsList from "../views/products/ProductList.vue";
-import ProductsCreate from "../views/products/CreateProduct.vue";
-import ProductsEdit from "../views/products/EditProduct.vue";
+import ProductsList from "../pages/products/ProductList.vue";
+import ProductsCreate from "../pages/products/CreateProduct.vue";
+import ProductsEdit from "../pages/products/EditProduct.vue";
 
 export default [
 {

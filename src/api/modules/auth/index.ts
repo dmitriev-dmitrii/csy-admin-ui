@@ -1,5 +1,5 @@
 import axiosInherit from "axios-inherit";
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {useCookies} from "vue3-cookies";
 import {USER_ACCESS_TOKEN_COOKIE_KEY} from "../../../constats/appCookiesKeys.ts";
 
@@ -13,10 +13,11 @@ const authApiInstance = axiosInherit(axios)
 authApiInstance.defaults.baseURL = 'http://localhost:4000/api/users'
 const userRegistration = async (payload = { })=> {
     try {
-        const {data} = await  authApiInstance.post('/registration', payload, )
-        setAuthTokenCooke(data.tokens)
+        const res = await  authApiInstance.post('/registration', payload, )
+        const {tokens} = res
+        setAuthTokenCooke(tokens)
 
-        return data
+        return res
     }
     catch (err) {
         console.log(err)
@@ -25,10 +26,11 @@ const userRegistration = async (payload = { })=> {
 
 const userLogin = async (payload = { })=> {
     try {
-        const {data} = await  authApiInstance.post('/login', payload)
-        setAuthTokenCooke(data.tokens)
+        const res = await  authApiInstance.post('/login', payload)
+        const {tokens} = res
+        setAuthTokenCooke(tokens)
 
-        return data
+        return res
     }
     catch ({response}) {
 
@@ -38,23 +40,25 @@ const userLogin = async (payload = { })=> {
 
 const userLogout = async (payload = { })=> {
     try {
-        const {data} = await  authApiInstance.post('/logout',payload)
+        const res = await  authApiInstance.post('/logout',payload)
         cookies.remove(USER_ACCESS_TOKEN_COOKIE_KEY)
 
-        return data
+        return  res
     }
     catch (err) {
         console.log(err)
     }
 
 }
-const userUpdateAuthTokens = async (config = {isRetryRefreshAuthTokens : false})=> {
+const userUpdateAuthTokens = async ({isRetryRefreshAuthTokens= false}  )=> {
     try {
+        //warn не класть лишние поля в конфиг запроса
+        const res = await  authApiInstance.put('/refresh-token',{} ,{isRetryRefreshAuthTokens} )
 
-        const {data} = await  authApiInstance.get('/refresh-token',config)
-        setAuthTokenCooke(data.tokens)
+        const {tokens} = res
+        setAuthTokenCooke(tokens)
 
-        return data
+        return res
     }
     catch (err) {
     }

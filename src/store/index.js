@@ -1,6 +1,7 @@
 import products from "./products";
 import users from "./users";
-export default {
+import {createStore} from "vuex";
+const storeModules = {
     state: {
 
     },
@@ -21,3 +22,4 @@ export default {
     }
 }
 
+export default  createStore(storeModules)

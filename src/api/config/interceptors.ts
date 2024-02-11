@@ -1,47 +1,39 @@
 import axios from "axios";
-import {useCookies} from "vue3-cookies";
-
 import axiosInherit from 'axios-inherit'
 import authApi from '../modules/auth'
-import {USER_ACCESS_TOKEN_COOKIE_KEY} from "../../constats/appCookiesKeys.ts";
+
 
 const {userUpdateAuthTokens} = authApi
 
 const apiConfig = {
-    isRetryRefreshAuthTokens: false , //была ли попытка  обновления рефреш токенов через интерцептор
+    // todo добавить в интерфейс аксиоса  поле isRetryRefreshAuthTokens
+    isRetryRefreshAuthTokens: false , //была ли попытка обновления рефреш токенов через интерцептор при 401 ошибке
     withCredentials:true,
 }
 
 axios.defaults = Object.assign(axios.defaults,apiConfig)
 
-const { cookies } = useCookies();
-
-const setAuthTokenCooke = ({accessToken=''})=> {
-    cookies.set(USER_ACCESS_TOKEN_COOKIE_KEY,accessToken);
-}
 
 async function responseErrInterceptor (err) {
 
     const {response, config} = err
     const {status} = response
 
-    if (status === 401 && !config.isRetryRefreshAuthTokens ) {
+    if (status === 401 && !config.isRetryRefreshAuthTokens) {
+        config.isRetryRefreshAuthTokens = true
 
-        const data = await   userUpdateAuthTokens({isRetryRefreshAuthTokens:true})
-
-        setAuthTokenCooke(data.tokens)
+        await  userUpdateAuthTokens({isRetryRefreshAuthTokens:true})
 
         return   await axios.request(config);
-
     }
-    throw err;
+
+    return err
 }
 
-async function responseInterceptor (res) {
-    console.log(res)
-    return res.data
+async function responseInterceptor ({data}) {
+    return data
 }
 
-axios.interceptors.response.use(null,responseErrInterceptor)
+axios.interceptors.response.use(responseInterceptor,responseErrInterceptor)
 
- axiosInherit(axios)
+ axiosInherit(axios) //либа-костыль, чтобы наследовать интерцепторы глобально
