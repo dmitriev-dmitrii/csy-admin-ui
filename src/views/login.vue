@@ -37,7 +37,8 @@ import {defineComponent, onMounted, reactive, ref, unref} from "vue";
 
 import NavigationAside from "../components/navigation/NavigationAside.vue";
 import NavigationHeader from "../components/navigation/NavigationHeader.vue";
-import usersApi from "../api/users/index.js";
+import usersApi from "../api/modules/users/index.js";
+import authApi from "../api/modules/auth/index.js";
 export default defineComponent({
   name:'Login',
   components: {NavigationHeader, NavigationAside},
@@ -51,8 +52,8 @@ export default defineComponent({
     } )
 
     const registrationFlag = ref(false)
-    const {userRegistration,getUsers,userLogout,userLogin} = usersApi
-
+    const {getUsers} = usersApi
+    const {userRegistration,userLogout,userLogin} = authApi
 const validateForm = ()=>{
       return unref(form.isValid)
 }
