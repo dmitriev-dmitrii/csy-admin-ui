@@ -11,15 +11,6 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 // Vuetify
 
-import VueCookies from 'vue3-cookies'
-
-const cookiesConfig = {
-    expireTimes: "30d",
-    path: "/",
-    domain: "",
-    secure: true,
-    sameSite: "None",
-};
 
 // globalApiInterceptor
 import './api/config/interceptors.ts'
@@ -31,6 +22,6 @@ const vuetify = createVuetify({
 })
 
 
-createApp(App).use(store).use(router).use(vuetify).use(VueCookies,cookiesConfig).mount('#app')
+createApp(App).use(store).use(router).use(vuetify).mount('#app')
 
 

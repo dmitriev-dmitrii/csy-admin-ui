@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import axiosInherit from 'axios-inherit'
 import authApi from '../modules/auth'
 
@@ -22,7 +22,7 @@ async function responseErrInterceptor (err) {
     if (status === 401 && !config.isRetryRefreshAuthTokens) {
         config.isRetryRefreshAuthTokens = true
 
-        await  userUpdateAuthTokens({isRetryRefreshAuthTokens:true})
+        await  userUpdateAuthTokens(true)
 
         return   await axios.request(config);
     }

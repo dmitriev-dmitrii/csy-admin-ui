@@ -1,4 +1,4 @@
-
+import axios from "axios";
 export default {
     namespaced: true,
     state: {
@@ -14,9 +14,7 @@ export default {
     },
 
     actions: {
-          async userLogin (payload){
 
-          }
     },
 
 }

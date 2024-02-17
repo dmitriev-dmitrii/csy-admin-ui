@@ -19,17 +19,10 @@
         @click:append-inner="formShowPasswordToggle"
     ></v-text-field>
     <!--        :rules="[rules.required, rules.min]"-->
-<v-checkbox v-model="registrationFlag">registrationFlag</v-checkbox>
     <v-btn type="submit"> submit </v-btn>
     <v-btn type="reset"> reset  </v-btn>
   </v-form>
-  <v-btn @click="fetchUsers">get users</v-btn>
-  <v-btn @click="userLogout">userLogout</v-btn>
-  <v-list title="users">
-    <v-list-item v-for="user in users">
-      {{user.login}}
-    </v-list-item>
-  </v-list>
+
 </template>
 
 <script >
@@ -37,55 +30,55 @@ import {defineComponent, onMounted, reactive, ref, unref} from "vue";
 
 import NavigationAside from "../components/navigation/NavigationAside.vue";
 import NavigationHeader from "../components/navigation/NavigationHeader.vue";
-import usersApi from "../api/modules/users/index.ts";
-import authApi from "../api/modules/auth/index.ts";
+
+import { useStore} from 'vuex'
+import {useRouter,useRoute} from "vue-router";
+
 export default defineComponent({
   name:'Login',
   components: {NavigationHeader, NavigationAside},
   setup() {
+    const store = useStore()
+    const {query} = useRoute()
+    const router = useRouter()
+
     const form = reactive( {
       email:'asdsdssdadasd@asxsad.ru',
       login:'fssdsdghjkl',
       password:'qwerssdsdtghuhbhy78iuhgt6y',
       isShowPassword :false,
-      isValid:false,
     } )
 
-    const registrationFlag = ref(false)
-    const {getUsers} = usersApi
-    const {userRegistration,userLogout,userLogin} = authApi
-const validateForm = ()=>{
-      return unref(form.isValid)
-}
-   const  submitForm  = async () => {
-     validateForm()
 
-     if (unref(registrationFlag)) {
-       await userRegistration(unref(form))
-       return
+
+
+
+   const  submitForm  = async () => {
+     try {
+
+      await store.dispatch('auth/login', unref(form))
+
+      const redirectPath = query['redirect-path']
+
+       if (redirectPath) {
+          await router.push({path: redirectPath})
+       }
      }
-      await userLogin(unref(form))
+    catch (e) {
+
+     }
+
+
    }
-    async function formShowPasswordToggle() {
+
+     function formShowPasswordToggle() {
       form.isShowPassword = !form.isShowPassword
     }
-    const users = ref([])
-   const  fetchUsers = async ()=>{
-        users.value = await getUsers()
-    }
-
-    onMounted(()=>{
-      fetchUsers()
-    })
 
     return {
-      users,
-      registrationFlag,
       submitForm,
       form,
       formShowPasswordToggle,
-      userLogout,
-      fetchUsers
     }
   }
 })

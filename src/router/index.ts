@@ -2,11 +2,11 @@
 import MainPage from "../pages/MainMage.vue";
 import Error from "../pages/ErrorPage.vue";
 import productsRoutes from "./productsRoutes.ts";
-
+import authRoutes from "./authRoutes.ts";
 import {LayoutsMap} from "../constats/LayoutsMap.ts";
 import {createRouter, createWebHistory} from "vue-router";
-import authRoutes from "./authRoutes.ts";
-import authMiddleware from "./middlewares/authMiddleware.ts";
+
+import store from "../store";
 
 const routes = [
   {
@@ -34,12 +34,14 @@ const router = createRouter({
   history : createWebHistory(),
   routes
 })
-router.beforeEach((to, from, next) => {
-  console.log(to)
 
-  // if (to.name !== 'login' ) {
-  //   return next({name : 'login'})
-  // }
+router.beforeEach((to, from, next) => {
+  console.log(store.getters['auth/isAuthenticated'])
+  //@ts-ignore
+  if (!store.getters['auth/isAuthenticated'] && to.name !== 'login' ) {
+
+    return next( { name : 'login',query: { 'redirect-path': from.name === 'login' ?  '/' : from.path } } )
+  }
 
   // if (to.meta.middleware) {
   //
@@ -47,5 +49,7 @@ router.beforeEach((to, from, next) => {
 
   return next();
 });
+
+
 
 export default router ;

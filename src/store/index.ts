@@ -1,6 +1,7 @@
-import products from "./products";
-import users from "./users";
+import products from "./products.ts";
+import users from "./users.ts";
 import {createStore} from "vuex";
+import auth from "./auth.ts";
 const storeModules = {
     state: {
 
@@ -17,8 +18,10 @@ const storeModules = {
 
     },
     modules: {
+        auth,
         users,
         products,
+
     }
 }
 

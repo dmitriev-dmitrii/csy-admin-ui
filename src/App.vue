@@ -16,6 +16,7 @@ import DefaultLayout from "./layouts/components/DefaultLayout.vue";
 import ErrorLayout from "./layouts/components/ErrorLayout.vue";
 import AuthLayout from "./layouts/components/AuthLayout.vue";
 import {LayoutsMap} from "./constats/LayoutsMap.ts";
+import {useStore} from "vuex";
 
 export default
 {
@@ -24,11 +25,14 @@ export default
 
   setup() {
     const {meta}  = useRoute()
+    const {dispatch}  = useStore()
 
-      const currentLayout =  computed(():LayoutsMap => {
-        console.log(meta)
-      return   LayoutsMap.DEFAULT_LAYOUT
+    const currentLayout =  computed(():LayoutsMap => {
+      return meta.layout as LayoutsMap || LayoutsMap.DEFAULT_LAYOUT
     })
+
+    dispatch('auth/refreshAuthTokens')
+
     return { currentLayout };
   },
 }
