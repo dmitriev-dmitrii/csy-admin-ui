@@ -1,12 +1,11 @@
 
 import MainPage from "../pages/MainMage.vue";
 import Error from "../pages/ErrorPage.vue";
-import productsRoutes from "./productsRoutes.ts";
+// import productsRoutes from "./productsRoutes.ts";
 import authRoutes from "./authRoutes.ts";
 import {LayoutsMap} from "../constats/LayoutsMap.ts";
 import {createRouter, createWebHistory} from "vue-router";
-
-import store from "../store";
+import {useAuthStore} from "../store/auth.ts";
 
 const routes = [
   {
@@ -17,7 +16,7 @@ const routes = [
       layout: LayoutsMap.DEFAULT_LAYOUT
     }
   },
-  ...productsRoutes,
+  // ...productsRoutes,
   ...authRoutes,
   {
     path: '/:pathMatch(.*)*',
@@ -36,10 +35,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(store.getters['auth/isAuthenticated'])
-  //@ts-ignore
-  if (!store.getters['auth/isAuthenticated'] && to.name !== 'login' ) {
-
+  const {isAuthenticated,user} = useAuthStore()
+  if (!isAuthenticated && to.name !== 'login' ) {
+    console.log(user)
     return next( { name : 'login',query: { 'redirect-path': from.name === 'login' ?  '/' : from.path } } )
   }
 

@@ -17,12 +17,12 @@ export default [
             // }
         ]
     },
-    // {
-    //     icon: '',
-    //     route : 'xz',
-    //     label:'xz',
-    //     permission:'xz',
-    // },
+    {
+        icon: '',
+        route : 'xz',
+        label:'xz',
+        permission:'xz',
+    },
     // {
     //     icon: '',
     //     route : 'as',

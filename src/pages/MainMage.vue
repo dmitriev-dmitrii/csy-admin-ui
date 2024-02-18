@@ -1,5 +1,5 @@
 <template>
-  <NavigationAside></NavigationAside>
+<!--  <NavigationAside></NavigationAside>-->
   <h1>hello friend</h1>
 
 </template>

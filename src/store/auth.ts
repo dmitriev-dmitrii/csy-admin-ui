@@ -1,7 +1,17 @@
 import authApi from "../api/modules/auth";
-import _pick from 'lodash/pick.js'
+import {defineStore} from "pinia";
+import _pick from "lodash/pick";
 
 const {userRegistration,userLogout,userLogin,userUpdateAuthTokens} = authApi
+
+// interface User {
+//     id :string;
+//     login :string;
+//     email  :string;
+//     createdAt : string;
+//     updatedAt  : string;
+// }
+
 
 const defaultUserData =  {
         id :'' ,
@@ -11,51 +21,41 @@ const defaultUserData =  {
         updatedAt  : '' ,
 }
 
-export default {
-    namespaced: true,
-
-    state: {
-        user: defaultUserData
-    },
+export const useAuthStore = defineStore('auth', {
+    state: () => ({ user: defaultUserData }) ,
 
     getters:{
-        isAuthenticated:({user})=>{
-            return Boolean(user.id)
-        }
-    },
-
-    mutations: {
-        setUserData:(state , userData) => {
-            state.user =  _pick(userData, Object.keys(state.user));
-        }
+        isAuthenticated:({user})=> Boolean(user.id),
     },
 
     actions: {
-
-        async login ({commit},payload){
-
-            const user =    await userLogin(payload)
-            commit('setUserData',user)
-
-          },
-
-        async registration ({commit},{email,login,password}){
-                const user =    await userRegistration({email,login,password})
-                commit('setUserData',user)
-            },
-
-        async refreshAuthTokens ({commit}){
-          const user =   await  userUpdateAuthTokens()
-            commit('setUserData',user)
+        updateUser (payload = defaultUserData) {
+            this.user =   _pick(payload, Object.keys(this.user))
         },
+        async login ({email = '',login = '',password = ''}){
 
-        async  logout ({commit}){
-         await  userLogout()
-         commit('setUserData',defaultUserData)
+            const user =    await userLogin({email,login,password})
+            this.updateUser( user )
 
         },
 
+        async registration ({email = '',login = '',password = ''}){
+            const user =    await userRegistration({email,login,password})
+            this.updateUser( user)
+        },
+
+        async refreshAuthTokens (){
+            try {
+                const user =   await  userUpdateAuthTokens(true)
+                this.updateUser( user )
+            }catch (e) {
+                this.updateUser()
+            }
+        },
+
+        async  logout (){
+            await  userLogout()
+            this.updateUser()
+        },
     }
-
-}
-
+})

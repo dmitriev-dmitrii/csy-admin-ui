@@ -31,16 +31,18 @@ import {defineComponent, onMounted, reactive, ref, unref} from "vue";
 import NavigationAside from "../components/navigation/NavigationAside.vue";
 import NavigationHeader from "../components/navigation/NavigationHeader.vue";
 
-import { useStore} from 'vuex'
 import {useRouter,useRoute} from "vue-router";
+import {useAuthStore} from "../store/auth.ts";
+
 
 export default defineComponent({
   name:'Login',
   components: {NavigationHeader, NavigationAside},
   setup() {
-    const store = useStore()
-    const {query} = useRoute()
+
     const router = useRouter()
+    const {query} = useRoute()
+    const {login} =  useAuthStore()
 
     const form = reactive( {
       email:'asdsdssdadasd@asxsad.ru',
@@ -56,7 +58,7 @@ export default defineComponent({
    const  submitForm  = async () => {
      try {
 
-      await store.dispatch('auth/login', unref(form))
+      await login( unref(form) )
 
       const redirectPath = query['redirect-path']
 

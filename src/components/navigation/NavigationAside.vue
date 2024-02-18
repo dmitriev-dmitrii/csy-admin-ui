@@ -49,7 +49,7 @@ export default {
     const catalogNavArr = []
 
     navItemsList.forEach((i)=>{
-
+      console.log(i)
       if (i.routeName) {
 
         catalogNavArr.push  (new NavItem(i))
@@ -63,7 +63,7 @@ export default {
 
       catalogNavArr.push (i)
     })
-
+    console.log( catalogNavArr)
     return {
       catalogNavArr,
 

@@ -1,7 +1,7 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
-import store from "./store";
 import router from "./router";
+import {createPinia} from "pinia";
 
 // Vuetify
 import { createVuetify } from 'vuetify'
@@ -11,17 +11,23 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 // Vuetify
 
-
 // globalApiInterceptor
 import './api/config/interceptors.ts'
-
+import {useAuthStore} from "./store/auth.ts";
 
 const vuetify = createVuetify({
     components,
     directives
 })
 
+const app = createApp(App)
+app.use(vuetify)
+app.use(createPinia())
 
-createApp(App).use(store).use(router).use(vuetify).mount('#app')
+const {refreshAuthTokens}  = useAuthStore()
+refreshAuthTokens().then(()=>{
+    app.use(router)
+    app.mount('#app')
+})
 
 

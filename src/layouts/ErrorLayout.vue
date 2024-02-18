@@ -6,7 +6,7 @@
 
 <script lang="ts">
 
-import NavigationHeader from "../../components/navigation/NavigationHeader.vue";
+import NavigationHeader from "../components/navigation/NavigationHeader.vue";
 
 export default
 {

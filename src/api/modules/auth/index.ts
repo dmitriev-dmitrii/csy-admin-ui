@@ -1,9 +1,9 @@
 import axios from "axios";
 import axiosInherit from "axios-inherit";
 
-
-
 const authApiInstance = axiosInherit(axios)
+
+
 
 authApiInstance.defaults.baseURL = 'http://localhost:4000/api/users'
 const userRegistration = async (payload = { })=> {
@@ -23,7 +23,7 @@ const userLogout = async (payload = { })=> {
    return  await  authApiInstance.post('/logout',payload)
 
 }
-const userUpdateAuthTokens = async (isRetryRefreshAuthTokens = false )=> {
+const userUpdateAuthTokens = async (isRetryRefreshAuthTokens ?: boolean)=> {
     // @ts-ignore
  return   await  authApiInstance.put('/refresh-token',{} ,{isRetryRefreshAuthTokens} )
 }
