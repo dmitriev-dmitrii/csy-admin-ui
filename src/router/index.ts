@@ -1,49 +1,44 @@
 
-import MainPage from "../pages/MainMage.vue";
-import Error from "../pages/ErrorPage.vue";
-// import productsRoutes from "./productsRoutes.ts";
+import MainPage from "../pages/MainPage.vue";
+import ErrorPage from "../pages/ErrorPage.vue";
+
 import authRoutes from "./authRoutes.ts";
-import {LayoutsMap} from "../constats/LayoutsMap.ts";
+import usersRoutes from "./usersRoutes.ts";
+
 import {createRouter, createWebHistory} from "vue-router";
-import {useAuthStore} from "../store/auth.ts";
+
+import {unref} from "vue";
+import {isAuthenticated} from "@/store/useAuthStore";
 
 const routes = [
   {
     path: "/",
     name: "main",
     component: MainPage,
-    meta:{
-      layout: LayoutsMap.DEFAULT_LAYOUT
-    }
   },
-  // ...productsRoutes,
   ...authRoutes,
+  ...usersRoutes,
   {
     path: '/:pathMatch(.*)*',
     name: "error",
-    component: Error,
-    meta:{
-      layout: LayoutsMap.ERROR_LAYOUT
-    }
+    component: ErrorPage,
+
   },
 ];
 
 const router = createRouter({
-  // mode: 'history',
-  history : createWebHistory(),
+  history: createWebHistory(),
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const {isAuthenticated,user} = useAuthStore()
-  if (!isAuthenticated && to.name !== 'login' ) {
-    console.log(user)
-    return next( { name : 'login',query: { 'redirect-path': from.name === 'login' ?  '/' : from.path } } )
-  }
 
-  // if (to.meta.middleware) {
-  //
-  // }
+// @ts-ignore
+router.beforeEach((to, from, next) => {
+
+  if (!unref(isAuthenticated) && to.name !== 'login' ) {
+
+    return next( { name : 'login',query: { 'redirect-path': to.name === 'login' ?  '/' : to.path } } )
+  }
 
   return next();
 });

@@ -1,6 +1,4 @@
 import LoginPage from "../pages/LoginPage.vue";
-import {LayoutsMap} from "../constats/LayoutsMap.ts";
-
 
 export default [
    {
@@ -8,7 +6,7 @@ export default [
         name: "login",
         component: LoginPage,
         meta:{
-            layout: LayoutsMap.AUTH_LAYOUT
+
         }
    }
 ]

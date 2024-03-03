@@ -1,34 +1,35 @@
 {
   "name": "csy-admin-ui",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "npm i && vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vue-tsc && vite build vite preview"
+    "build": "npm ci && vue-tsc --build --force && vite build",
+    "preview": "vite build && vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "axios-inherit": "^1.0.1",
-    "pinia": "^2.1.7",
-    "vue": "3.4.7",
-    "vue-router": "4.1.6"
+    "vue": "3.4.21",
+    "vue-router": "4.3.0"
   },
   "devDependencies": {
-    "@mdi/font": "^7.4.47",
     "@types/lodash": "^4.14.202",
-    "@vitejs/plugin-vue": "^4.5.2",
-    "autoprefixer": "10.4.13",
+    "@types/axios": "^0.14.0",
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.10",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/tsconfig": "^0.5.1",
     "axios": "^1.6.7",
-    "dotenv": "^16.0.3",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.22.0",
     "lodash": "^4.17.21",
-    "postcss-flexbugs-fixes": "5.0.2",
-    "postcss-loader": "7.0.2",
-    "postcss-sort-media-queries": "4.3.0",
-    "typescript": "^5.2.2",
+    "prettier": "^3.0.3",
+    "typescript": "~5.3.0",
     "vite": "^5.0.11",
-    "vite-plugin-vuetify": "^2.0.1",
-    "vue-tsc": "^1.8.25",
-    "vuetify": "^3.5.1"
+    "vue-tsc": "^2.0.6"
   }
 }

@@ -1,88 +1,55 @@
 <template>
 
-  <v-form @submit.prevent="submitForm">
-    <v-text-field
-        v-model="form.login"
-        label="login"
-    ></v-text-field>
-    <v-text-field
-        v-model="form.email"
-        label="email "
-    ></v-text-field>
-    <v-text-field
-        v-model="form.password"
-        :append-inner-icon="form.isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="form.isShowPassword ? 'text' : 'password'"
-        label="password"
-        hint="hui"
-        counter
-        @click:append-inner="formShowPasswordToggle"
-    ></v-text-field>
-    <!--        :rules="[rules.required, rules.min]"-->
-    <v-btn type="submit"> submit </v-btn>
-    <v-btn type="reset"> reset  </v-btn>
-  </v-form>
+<button @click="submitForm"  type="submit">submit</button>
 
 </template>
 
-<script >
-import {defineComponent, onMounted, reactive, ref, unref} from "vue";
-
-import NavigationAside from "../components/navigation/NavigationAside.vue";
-import NavigationHeader from "../components/navigation/NavigationHeader.vue";
+<script  lang="ts">
+import {defineComponent, onMounted, reactive, ref, unref , onBeforeUnmount} from "vue";
 
 import {useRouter,useRoute} from "vue-router";
-import {useAuthStore} from "../store/auth.ts";
+import {login,isAuthenticated} from '@/store/useAuthStore.js'
 
 
-export default defineComponent({
-  name:'Login',
-  components: {NavigationHeader, NavigationAside},
+
+export default {
+  name:'LoginPage',
+
   setup() {
 
     const router = useRouter()
     const {query} = useRoute()
-    const {login} =  useAuthStore()
+
 
     const form = reactive( {
       email:'asdsdssdadasd@asxsad.ru',
       login:'fssdsdghjkl',
       password:'qwerssdsdtghuhbhy78iuhgt6y',
-      isShowPassword :false,
     } )
 
+    const redirectPath = query['redirect-path'] || '/'
 
+    if (unref(isAuthenticated)) {
+       router.push({path: redirectPath})
+    }
 
+    const  submitForm  = async () => {
 
-
-   const  submitForm  = async () => {
-     try {
 
       await login( unref(form) )
+      await router.push({path: redirectPath})
 
-      const redirectPath = query['redirect-path']
-
-       if (redirectPath) {
-          await router.push({path: redirectPath})
-       }
-     }
-    catch (e) {
-
-     }
 
 
    }
 
-     function formShowPasswordToggle() {
-      form.isShowPassword = !form.isShowPassword
-    }
+
 
     return {
       submitForm,
       form,
-      formShowPasswordToggle,
     }
   }
-})
+}
 
 </script>

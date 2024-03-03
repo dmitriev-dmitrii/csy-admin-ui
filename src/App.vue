@@ -1,36 +1,31 @@
 <template>
-    <v-app class="py-2 px-2 px-md-4">
-    <v-main>
-      <component :is="currentLayout">
-        <router-view/>
-      </component>
-    </v-main>
-  </v-app>
+    <div>
+
+      <NavigationHeader v-if="isAuthenticated"/>
+      <NavigationAside v-if="isAuthenticated"/>
+      <router-view/>
+
+  </div>
 </template>
 
 <script lang="ts">
 
-import {computed} from "vue";
-import {useRoute} from "vue-router";
-import DefaultLayout from "./layouts/DefaultLayout.vue";
-import ErrorLayout from "./layouts/ErrorLayout.vue";
-import AuthLayout from "./layouts/AuthLayout.vue";
-import {LayoutsMap} from "./constats/LayoutsMap.ts";
+
+import NavigationHeader from "@/components/navigation/NavigationHeader.vue";
+import NavigationAside from "@/components/navigation/NavigationRightAside.vue";
+import {isAuthenticated, refreshAuthTokens} from "@/store/useAuthStore";
 
 
 export default
 {
   name:'App',
-  components: {DefaultLayout,AuthLayout,ErrorLayout},
+  components: {NavigationHeader,NavigationAside},
 
   setup() {
-    const {meta}  = useRoute()
 
-    const currentLayout =  computed(():LayoutsMap => {
-      return meta.layout as LayoutsMap | undefined || LayoutsMap.DEFAULT_LAYOUT
-    })
 
-    return { currentLayout };
+    refreshAuthTokens()
+    return { isAuthenticated };
   },
 }
 </script>
