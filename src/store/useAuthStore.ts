@@ -48,9 +48,9 @@ export   const  refreshAuthTokens =     async  ()=>{
         try {
             const data =   await  userUpdateAuthTokens(true)
             //@ts-ignore
-            return  updateUser(  data )
+            return  updateUser( data )
         }catch (e) {
-            return updateUser()
+             updateUser()
         }
     }
 

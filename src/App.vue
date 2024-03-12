@@ -13,8 +13,7 @@
 
 import NavigationHeader from "@/components/navigation/NavigationHeader.vue";
 import NavigationAside from "@/components/navigation/NavigationRightAside.vue";
-import {isAuthenticated, refreshAuthTokens} from "@/store/useAuthStore";
-
+import {isAuthenticated} from "@/store/useAuthStore";
 
 export default
 {
@@ -23,8 +22,7 @@ export default
 
   setup() {
 
-
-    refreshAuthTokens()
+    console.log(import.meta.env)
     return { isAuthenticated };
   },
 }

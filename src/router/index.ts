@@ -1,6 +1,5 @@
 
 import MainPage from "../pages/MainPage.vue";
-import ErrorPage from "../pages/ErrorPage.vue";
 
 import authRoutes from "./authRoutes.ts";
 import usersRoutes from "./usersRoutes.ts";
@@ -21,8 +20,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: "error",
-    component: ErrorPage,
-
+    component: () => import('../pages/ErrorPage.vue')
   },
 ];
 

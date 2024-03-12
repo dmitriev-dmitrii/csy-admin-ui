@@ -2,9 +2,15 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+import {config} from "dotenv";
+
+const env = config().parsed
+const {APP_PORT,USERS_API_URL} = env
+
 // https://vitejs.dev/config/
 
 export default defineConfig(({ command, mode, isSsrBuild, isPreview })=>{
+
   const config = {
     plugins: [vue()],
     resolve: {
@@ -13,10 +19,10 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview })=>{
       }
     },
     server: {
-      port: 5000,
+      port: APP_PORT,
     },
     preview: {
-      port: 5000,
+      port: APP_PORT,
     },
   }
 
