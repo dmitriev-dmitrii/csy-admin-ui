@@ -28,7 +28,7 @@ export const userLogout = async (payload = { })=> {
 }
 export const userUpdateAuthTokens = async (isRetryRefreshAuthTokens = false )=> {
     // @ts-ignore
- return   await  axiosUsersApiInstance.put('/auth/refresh-token',{} ,{isRetryRefreshAuthTokens} )
+ return   await  axiosUsersApiInstance.put('/auth/refresh-tokens',{} ,{isRetryRefreshAuthTokens} )
 }
 
 export default {
